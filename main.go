@@ -6,7 +6,7 @@ import (
 	"os/signal"
 	"syscall"
 
-	idRelay "github.com/iceflowre/ircDiscordRelay/pkg"
+	idRelay "github.com/iceflowre/irc-discord-relay/pkg"
 )
 
 func main() {

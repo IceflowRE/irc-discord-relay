@@ -1,7 +1,7 @@
 # ircDiscordRelay
 ![maintained](https://img.shields.io/badge/maintained-yes-brightgreen.svg)
 ![Programming Language](https://img.shields.io/badge/language-Go-orange.svg)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/iceflowre/ircdiscordrelay/blob/master/LICENSE.md)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/iceflowre/irc-discord-relay/blob/master/LICENSE.md)
 
 ---
 
@@ -10,7 +10,7 @@ Description.
 ---
 
 ## Web
-https://github.com/iceflowre/ircDiscordRelay
+https://github.com/iceflowre/irc-discord-relay
 
 ## Credits
 - Developer
@@ -28,7 +28,7 @@ https://github.com/iceflowre/ircDiscordRelay
     - https://github.com/thoj/go-ircevent
     - [BSD-3-Clause](https://github.com/thoj/go-ircevent/blob/master/LICENSE)
 
-Taken some Code from:
+Some Code taken from:
 - Snowflower *by* Iceflower S ([Iceflower](https://gitlab.com/Iceflower))
     - (unpublished)
     - https://gitlab.com/Iceflower/snowflower
