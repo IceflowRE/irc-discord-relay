@@ -1,11 +1,21 @@
 # ircDiscordRelay
 ![maintained](https://img.shields.io/badge/maintained-yes-brightgreen.svg)
 ![Programming Language](https://img.shields.io/badge/language-Go-orange.svg)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/iceflowre/irc-discord-relay/blob/master/LICENSE.md)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/iceflowRE/irc-discord-relay/blob/master/LICENSE.md)
 
 ---
 
-Description.
+## Requirements
+
+- Go (only 1.10 is tested)
+
+## Installation
+
+- `go get github.com/iceflowRE/irc-discord-relay`
+- `go build -x github.com/iceflowRE/irc-discord-relay`
+- create a `config.json`, with their needed values, look into the example for more
+- place the config and the executable in one folder
+- execute with `irc-discord-relay -c config.json`
 
 ---
 

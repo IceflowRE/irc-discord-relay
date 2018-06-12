@@ -11,7 +11,7 @@ var Config *Settings
 
 type Discord struct {
 	ChannelId *string `json:"´channelId,omitempty"`
-	Token *string `json:"´token,omitempty"`
+	Token     *string `json:"´token,omitempty"`
 }
 
 type Irc struct {
@@ -25,10 +25,13 @@ type Settings struct {
 	Discord *Discord `json:"discord,omitempty"`
 }
 
-func LoadConfig() error {
-	respBytes, _ := ioutil.ReadFile("./config.json")
+func LoadConfig(file string) error {
+	content, err := ioutil.ReadFile(file)
+	if err != nil {
+		return err
+	}
 	config := Settings{}
-	err := json.Unmarshal(respBytes, &config)
+	err = json.Unmarshal(content, &config)
 	if err != nil {
 		return err
 	}

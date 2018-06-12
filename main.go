@@ -1,24 +1,35 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"os"
 	"os/signal"
 	"syscall"
 
-	idRelay "github.com/iceflowre/irc-discord-relay/pkg"
+	idRelay "github.com/iceflowRE/irc-discord-relay/pkg"
 )
 
 func main() {
-	idRelay.LoadConfig()
+	var configFile string
+	flag.StringVar(&configFile, "c", "./config.json", "config file")
+	flag.Parse()
 
-	err := idRelay.StartIRC()
+	err := idRelay.LoadConfig(configFile)
 	if err != nil {
-		panic(err)
+		fmt.Println(err.Error())
+		return
+	}
+
+	err = idRelay.StartIRC()
+	if err != nil {
+		fmt.Println(err.Error())
+		return
 	}
 	err = idRelay.StartDiscord()
 	if err != nil {
-		panic(err)
+		fmt.Println(err.Error())
+		return
 	}
 
 	// waiting for close
@@ -28,10 +39,10 @@ func main() {
 	case <-sc:
 	}
 	discordErr, ircErr := idRelay.Relay.Close()
-	if discordErr  != nil {
-		fmt.Errorf(discordErr.Error())
+	if discordErr != nil {
+		fmt.Println(discordErr.Error())
 	}
-	if ircErr  != nil {
-		fmt.Errorf(ircErr.Error())
+	if ircErr != nil {
+		fmt.Println(ircErr.Error())
 	}
 }
