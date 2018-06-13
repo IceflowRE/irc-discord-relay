@@ -9,12 +9,19 @@
 
 ## Requirements
 
-- Go (only 1.10 is tested)
+- Go (>= 1.9)
 
-## Installation
+## Build
 
 - `go get github.com/IceflowRE/irc-discord-relay`
 - `go build -x github.com/IceflowRE/irc-discord-relay`
+
+Alternativ
+- `git clone https://github.com/IceflowRE/irc-discord-relay.git`
+- `cd irc-discord-relay`
+- `make build`
+
+## Run
 - create a `config.json`, with their needed values, look into the example for more
 - place the config and the executable in one folder
 - execute with `irc-discord-relay -c config.json`

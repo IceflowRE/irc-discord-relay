@@ -1,6 +1,8 @@
 package ircDiscordRelay
 
 import (
+	"fmt"
+
 	"github.com/bwmarrin/discordgo"
 )
 
@@ -20,7 +22,10 @@ func StartDiscord() error {
 }
 
 func SendDiscord(msg string) {
-	Relay.dSession.ChannelMessageSend(*Config.Discord.ChannelId, msg)
+	_, err := Relay.dSession.ChannelMessageSend(*Config.Discord.ChannelId, msg)
+	if err != nil {
+		fmt.Println(err.Error())
+	}
 }
 
 func onDiscord(_ *discordgo.Session, msg *discordgo.MessageCreate) {
