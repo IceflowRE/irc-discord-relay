@@ -11,8 +11,8 @@
 
 ## Installation
 
-- `go get github.com/iceflowRE/irc-discord-relay`
-- `go build -x github.com/iceflowRE/irc-discord-relay`
+- `go get github.com/IceflowRE/irc-discord-relay`
+- `go build -x github.com/IceflowRE/irc-discord-relay`
 - create a `config.json`, with their needed values, look into the example for more
 - place the config and the executable in one folder
 - execute with `irc-discord-relay -c config.json`
