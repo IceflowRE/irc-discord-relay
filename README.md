@@ -3,6 +3,8 @@
 ![Programming Language](https://img.shields.io/badge/language-Go-orange.svg)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/iceflowRE/irc-discord-relay/blob/master/LICENSE.md)
 
+[![Build Status](https://travis-ci.org/IceflowRE/irc-discord-relay.svg?branch=master)](https://travis-ci.org/IceflowRE/irc-discord-relay)
+
 ---
 
 ## Requirements
