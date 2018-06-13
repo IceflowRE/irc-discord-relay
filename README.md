@@ -22,7 +22,7 @@
 ---
 
 ## Web
-https://github.com/iceflowre/irc-discord-relay
+https://github.com/IceflowRE/irc-discord-relay
 
 ## Credits
 - Developer
