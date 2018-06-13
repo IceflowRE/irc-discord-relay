@@ -17,4 +17,4 @@ install:
   - go get ./...
 
 script:
-  - go build -x github.com/IceflowRE/irc-discord-relay
+  - go build -x
