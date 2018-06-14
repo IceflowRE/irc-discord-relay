@@ -11,8 +11,22 @@ func StartDiscord() error {
 	if err != nil {
 		return err
 	}
+
 	session.AddHandler(func(session *discordgo.Session, msg *discordgo.Ready) { session.UpdateStatus(0, *Config.Irc.Channel+" relay") })
-	session.AddHandler(onDiscord)
+	valid := false
+	for _, value := range *Config.Discord.Sharing {
+		switch value {
+		case "message":
+			valid = true
+			session.AddHandler(onDiscord)
+		default:
+			fmt.Println("Invalid discord.sharing value '" + value + "' will be ignored.")
+		}
+	}
+	if !valid {
+		return errors.New("No valid values in discord.sharing.")
+	}
+
 	err = session.Open()
 	if err != nil {
 		return err

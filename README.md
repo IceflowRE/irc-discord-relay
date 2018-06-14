@@ -7,6 +7,30 @@
 
 ---
 
+## Configuration
+
+The configuration is a json formatted file.
+One example configuration is part of this repository.
+
+- **discord** - *map*, required - contains all settings related to the Discord part
+    - **token** - *string*, required - the bot token
+    - **channelId** - *string*, required - the channel id where the messages will be send
+    - **sharing** - *list of string* - the actions which will be shared to IRC, an absence of this will imply to share all actions
+        - **"message"** - discord message
+- **irc** - *map*, required - contains all settings related to the IRC part
+    - **channel** - *string*, required - the IRC channel where the bot connects to
+    - **nick** - *string*, required - the IRC nick
+    - **sharing** - *list of string* - the actions which will be shared to Discord, an absence of this will imply to share all actions
+        - **"message"** - discord message
+        - **"me"** - `/me` messages
+        - **"join"** - joining users
+        - **"leaving"** - leaving users
+        - **"quit"** - quiting users (e.g. timeout)
+        - **"kick"** - user got kicked
+        - **"mode"** - a mode changed by another user
+
+---
+
 ## Requirements
 
 - Go (>= 1.9)

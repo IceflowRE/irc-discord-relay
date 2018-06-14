@@ -1,11 +1,23 @@
 {
     "discord": {
         "token": "<token>",
-        "channelId": "<channel id>"
+        "channelId": "<channel id>",
+        "sharing": [
+            "message"
+        ]
     },
     "irc": {
         "server": "irc.freenode.net:7000",
         "channel": "<channel>",
-        "nick": "<ircDiscordRelay>"
+        "nick": "<nick>",
+        "sharing": [
+            "message",
+            "me",
+            "join",
+            "leaving",
+            "quit",
+            "kick",
+            "mode"
+        ]
     }
 }

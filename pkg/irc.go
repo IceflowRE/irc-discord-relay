@@ -2,6 +2,8 @@ package ircDiscordRelay
 
 import (
 	"crypto/tls"
+	"errors"
+	"fmt"
 
 	"github.com/thoj/go-ircevent"
 )
@@ -65,18 +67,44 @@ func StartIRC() error {
 	iConn.UseTLS = true
 	iConn.TLSConfig = &tls.Config{InsecureSkipVerify: true}
 
-	iConn.AddCallback("001", func(e *irc.Event) {
-		iConn.Join(*Config.Irc.Channel)
-		//iConn.SendRaw("/msg NickServ identify Blizzard " + password)
-	},
+	iConn.AddCallback(
+		"001",
+		func(e *irc.Event) {
+			iConn.Join(*Config.Irc.Channel)
+			//iConn.SendRaw("/msg NickServ identify Blizzard " + password)
+		},
 	)
-	iConn.AddCallback("PRIVMSG", onIrcPrivmsg)
-	iConn.AddCallback("CTCP_ACTION", onIrcCtcpAction)
-	iConn.AddCallback("JOIN", onIrcJoin)
-	iConn.AddCallback("PART", onIrcPart)
-	iConn.AddCallback("QUIT", onIrcQuit)
-	iConn.AddCallback("KICK", onIrcKick)
-	iConn.AddCallback("MODE", onIrcMode)
+	valid := false
+	for _, value := range *Config.Discord.Sharing {
+		switch value {
+		case "message":
+			valid = true
+			iConn.AddCallback("PRIVMSG", onIrcPrivmsg)
+		case "me":
+			valid = true
+			iConn.AddCallback("CTCP_ACTION", onIrcCtcpAction)
+		case "join":
+			valid = true
+			iConn.AddCallback("JOIN", onIrcJoin)
+		case "leaving":
+			valid = true
+			iConn.AddCallback("PART", onIrcPart)
+		case "quit":
+			valid = true
+			iConn.AddCallback("QUIT", onIrcQuit)
+		case "kick":
+			valid = true
+			iConn.AddCallback("KICK", onIrcKick)
+		case "mode":
+			valid = true
+			iConn.AddCallback("MODE", onIrcMode)
+		default:
+			fmt.Println("Invalid irc.sharing value '" + value + "' will be ignored.")
+		}
+	}
+	if !valid {
+		return errors.New("No valid values in irc.sharing.")
+	}
 
 	err := iConn.Connect(*Config.Irc.Server)
 	if err != nil {
