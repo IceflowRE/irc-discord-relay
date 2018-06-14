@@ -19,7 +19,7 @@ func StartDiscord() error {
 		switch value {
 		case "message":
 			valid = true
-			session.AddHandler(onDiscord)
+			session.AddHandler(onDiscordMsg)
 		default:
 			fmt.Println("Invalid discord.sharing value '" + value + "' will be ignored.")
 		}
@@ -43,7 +43,7 @@ func SendDiscord(msg string) {
 	}
 }
 
-func onDiscord(session *discordgo.Session, msg *discordgo.MessageCreate) {
+func onDiscordMsg(session *discordgo.Session, msg *discordgo.MessageCreate) {
 	if msg.Author.Bot || !Relay.isReady() || msg.ChannelID != *Config.Discord.ChannelId { // ignore message from bots (including myself) and if not ready
 		return
 	}
@@ -53,4 +53,10 @@ func onDiscord(session *discordgo.Session, msg *discordgo.MessageCreate) {
 		return
 	}
 	SendIrc("<" + msg.Author.Username + "> " + msgText)
+	// if message contains an attachment
+	if msg.Attachments != nil && len(msg.Attachments) > 0 {
+		for _, att := range msg.Attachments {
+			SendIrc("<" + msg.Author.Username + "> " + att.URL)
+		}
+	}
 }
