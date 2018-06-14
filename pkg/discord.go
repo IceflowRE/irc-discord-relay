@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/bwmarrin/discordgo"
+	"github.com/pkg/errors"
 )
 
 func StartDiscord() error {
@@ -42,9 +43,14 @@ func SendDiscord(msg string) {
 	}
 }
 
-func onDiscord(_ *discordgo.Session, msg *discordgo.MessageCreate) {
+func onDiscord(session *discordgo.Session, msg *discordgo.MessageCreate) {
 	if msg.Author.Bot || !Relay.isReady() || msg.ChannelID != *Config.Discord.ChannelId { // ignore message from bots (including myself) and if not ready
 		return
 	}
-	SendIrc("<" + msg.Author.Username + "> " + msg.Content)
+	msgText, err := msg.ContentWithMoreMentionsReplaced(session);
+	if err != nil {
+		fmt.Println(err.Error())
+		return
+	}
+	SendIrc("<" + msg.Author.Username + "> " + msgText)
 }

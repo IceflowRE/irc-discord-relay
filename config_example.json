@@ -10,11 +10,15 @@
         "server": "irc.freenode.net:7000",
         "channel": "<channel>",
         "nick": "<nick>",
+        "onConnection": {
+            "NickServ": "identify <nick> <password>"
+        },
         "sharing": [
             "message",
             "me",
             "join",
             "leaving",
+            "nick",
             "quit",
             "kick",
             "mode"

@@ -20,11 +20,13 @@ One example configuration is part of this repository.
 - **irc** - *map*, required - contains all settings related to the IRC part
     - **channel** - *string*, required - the IRC channel where the bot connects to
     - **nick** - *string*, required - the IRC nick
+    - **onConnection** - *map of string* - will send a message (value) to the user (key)
     - **sharing** - *list of string* - the actions which will be shared to Discord, an absence of this will imply to share all actions
         - **"message"** - discord message
         - **"me"** - `/me` messages
         - **"join"** - joining users
         - **"leaving"** - leaving users
+        - **"nick"** - nick change
         - **"quit"** - quiting users (e.g. timeout)
         - **"kick"** - user got kicked
         - **"mode"** - a mode changed by another user

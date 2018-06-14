@@ -15,16 +15,13 @@ type Discord struct {
 	Sharing   *[]string `json:"sharing,omitempty"`
 }
 
-var discordAvailSharing = []string{"message"}
-
 type Irc struct {
-	Channel *string   `json:"channel,omitempty"`
-	Nick    *string   `json:"nick,omitempty"`
-	Server  *string   `json:"server,omitempty"`
-	Sharing *[]string `json:"sharing,omitempty"`
+	Channel      *string            `json:"channel,omitempty"`
+	Nick         *string            `json:"nick,omitempty"`
+	Server       *string            `json:"server,omitempty"`
+	OnConnection *map[string]string `json:"onConnection,omitempty"`
+	Sharing      *[]string          `json:"sharing,omitempty"`
 }
-
-var ircAvailSharing = []string{"message", "me", "join", "leaving", "quit", "kick", "mode"}
 
 type Settings struct {
 	Irc     *Irc     `json:"irc,omitempty"`
@@ -41,11 +38,14 @@ func LoadConfig(file string) error {
 		return err
 	}
 
+	if Config.Irc.OnConnection == nil {
+		Config.Irc.OnConnection = &map[string]string{}
+	}
 	if Config.Irc.Sharing == nil {
-		Config.Irc.Sharing = &ircAvailSharing
+		Config.Irc.Sharing = &[]string{"message", "me", "join", "leaving", "quit", "kick", "mode"}
 	}
 	if Config.Discord.Sharing == nil {
-		Config.Discord.Sharing = &discordAvailSharing
+		Config.Discord.Sharing = &[]string{"message"}
 	}
 
 	return Config.checkConfig()
@@ -78,4 +78,3 @@ func (config *Settings) checkConfig() error {
 
 	return nil
 }
-
