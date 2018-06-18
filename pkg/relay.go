@@ -9,6 +9,7 @@ var Relay *idRelay = &idRelay{}
 
 type idRelay struct {
 	dSession *discordgo.Session
+	dGuildId string
 	iConn    *irc.Connection
 }
 

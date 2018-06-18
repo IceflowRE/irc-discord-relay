@@ -2,10 +2,13 @@ package ircDiscordRelay
 
 import (
 	"fmt"
+	"regexp"
 
 	"github.com/bwmarrin/discordgo"
 	"github.com/pkg/errors"
 )
+
+var discordNickReg = regexp.MustCompile("@[a-zA-Z0-9]*")
 
 func StartDiscord() error {
 	session, err := discordgo.New("Bot " + *Config.Discord.Token)
@@ -33,6 +36,13 @@ func StartDiscord() error {
 		return err
 	}
 	Relay.dSession = session
+
+	chn, err := Relay.dSession.Channel(*Config.Discord.ChannelId)
+	if err != nil {
+		return err
+	}
+	Relay.dGuildId = chn.GuildID
+
 	return nil
 }
 

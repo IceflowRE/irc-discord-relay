@@ -4,6 +4,7 @@ import (
 	"crypto/tls"
 	"errors"
 	"fmt"
+	"strings"
 
 	"github.com/thoj/go-ircevent"
 )
@@ -91,18 +92,43 @@ func SendIrc(msg string) {
 	Relay.iConn.Privmsg(*Config.Irc.Channel, msg)
 }
 
+// if it does not contain any mention it returns the msg itself
+func messageWithMention(msg string) string {
+	if strings.ContainsRune(msg, '@') { // contains the message possible mentions
+		// get the members, have the Discord API limit in mind!
+		members, err := Relay.dSession.GuildMembers(Relay.dGuildId, "", 1000)
+		if err != nil { // something went wrong
+			fmt.Println(err.Error())
+			return ""
+		}
+		arr := strings.Split(msg, " ")
+		for ind, val := range arr { // go through the message and check the parts
+			if discordNickReg.MatchString(val) { // it is a mention
+				for _, member := range members { // get the regarding discord id if its exists
+					if val == ("@"+member.Nick) || val == ("@"+member.User.Username) {
+						arr[ind] = "<@" + member.User.ID + ">"
+						break;
+					}
+				}
+			}
+		}
+		return strings.Join(arr, " ")
+	}
+	return msg
+}
+
 func onIrcPrivmsg(e *irc.Event) {
 	if !Relay.isReady() || e.Nick == *Config.Irc.Nick {
 		return
 	}
-	SendDiscord("**<" + e.Nick + ">** " + e.Message())
+	SendDiscord("**<" + e.Nick + ">** " + messageWithMention(e.Message()))
 }
 
 func onIrcCtcpAction(e *irc.Event) {
 	if !Relay.isReady() || e.Nick == *Config.Irc.Nick {
 		return
 	}
-	SendDiscord("**<" + e.Nick + ">** *" + e.Message() + "*")
+	SendDiscord("**<" + e.Nick + ">** *" + messageWithMention(e.Message()) + "*")
 }
 
 func onIrcJoin(e *irc.Event) {
