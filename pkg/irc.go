@@ -88,11 +88,12 @@ func StartIRC() error {
 	return nil
 }
 
+// send a message to the IRC channel
 func SendIrc(msg string) {
 	Relay.iConn.Privmsg(*Config.Irc.Channel, msg)
 }
 
-// if it does not contain any mention it returns the msg itself
+// if it does not contain any mention it returns the message itself
 func messageWithMention(msg string) string {
 	if strings.ContainsRune(msg, '@') { // contains the message possible mentions
 		// get the members, have the Discord API limit in mind!
@@ -117,6 +118,8 @@ func messageWithMention(msg string) string {
 	return msg
 }
 
+// PRIVMSG callback
+// https://tools.ietf.org/html/rfc1459#section-4.4.1
 func onIrcPrivmsg(e *irc.Event) {
 	if !Relay.isReady() || e.Nick == *Config.Irc.Nick {
 		return
@@ -124,6 +127,7 @@ func onIrcPrivmsg(e *irc.Event) {
 	SendDiscord("**<" + e.Nick + ">** " + messageWithMention(e.Message()))
 }
 
+// CTCP_ACTION callback
 func onIrcCtcpAction(e *irc.Event) {
 	if !Relay.isReady() || e.Nick == *Config.Irc.Nick {
 		return
@@ -131,6 +135,8 @@ func onIrcCtcpAction(e *irc.Event) {
 	SendDiscord("**<" + e.Nick + ">** *" + messageWithMention(e.Message()) + "*")
 }
 
+// JOIN callback
+// https://tools.ietf.org/html/rfc2813#section-4.2.1
 func onIrcJoin(e *irc.Event) {
 	if !Relay.isReady() || e.Nick == *Config.Irc.Nick {
 		return
@@ -138,6 +144,8 @@ func onIrcJoin(e *irc.Event) {
 	SendDiscord("*" + e.Nick + "* has joined the channel")
 }
 
+// PART callback
+// https://tools.ietf.org/html/rfc1459#section-4.2.2
 func onIrcPart(e *irc.Event) {
 	if !Relay.isReady() {
 		return
@@ -145,6 +153,8 @@ func onIrcPart(e *irc.Event) {
 	SendDiscord("*" + e.Nick + "* has left the channel (" + e.Message() + ")")
 }
 
+// NICK callback
+// https://tools.ietf.org/html/rfc2813#section-4.1.3
 func onIrcNick(e *irc.Event) {
 	if !Relay.isReady() {
 		return
@@ -152,6 +162,8 @@ func onIrcNick(e *irc.Event) {
 	SendDiscord("*" + e.Nick + "* is now known as *" + e.Message() + "*")
 }
 
+// QUIT callback
+// https://tools.ietf.org/html/rfc2813#section-4.1.5
 func onIrcQuit(e *irc.Event) {
 	if !Relay.isReady() || e.Nick == *Config.Irc.Nick {
 		return
@@ -159,6 +171,9 @@ func onIrcQuit(e *irc.Event) {
 	SendDiscord("*" + e.Nick + "* has quit (" + e.Message() + ")")
 }
 
+
+// KICK callback
+// https://tools.ietf.org/html/rfc1459#section-4.2.8
 func onIrcKick(e *irc.Event) {
 	if !Relay.isReady() || e.Nick == *Config.Irc.Nick || len(e.Arguments) < 2 {
 		return
@@ -166,6 +181,8 @@ func onIrcKick(e *irc.Event) {
 	SendDiscord("*" + e.Nick + "* kicked *" + e.Arguments[1] + "*")
 }
 
+// MODE callback
+// https://tools.ietf.org/html/rfc1459#section-4.2.3
 func onIrcMode(e *irc.Event) {
 	if !Relay.isReady() || e.Nick == *Config.Irc.Nick || e.Nick == "" || len(e.Arguments) < 3 {
 		return

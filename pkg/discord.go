@@ -46,6 +46,7 @@ func StartDiscord() error {
 	return nil
 }
 
+// send message on discord
 func SendDiscord(msg string) {
 	_, err := Relay.dSession.ChannelMessageSend(*Config.Discord.ChannelId, msg)
 	if err != nil {
@@ -53,8 +54,10 @@ func SendDiscord(msg string) {
 	}
 }
 
+// on discord message
 func onDiscordMsg(session *discordgo.Session, msg *discordgo.MessageCreate) {
-	if msg.Author.Bot || !Relay.isReady() || msg.ChannelID != *Config.Discord.ChannelId { // ignore message from bots (including myself) and if not ready
+	// ignore message from bots (including myself) and if not ready
+	if msg.Author.Bot || !Relay.isReady() || msg.ChannelID != *Config.Discord.ChannelId {
 		return
 	}
 	msgText, err := msg.ContentWithMoreMentionsReplaced(session);
