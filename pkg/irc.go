@@ -100,7 +100,7 @@ func messageWithMention(msg string) string {
 		members, err := Relay.dSession.GuildMembers(Relay.dGuildId, "", 1000)
 		if err != nil { // something went wrong
 			fmt.Println(err.Error())
-			return ""
+			return msg
 		}
 		arr := strings.Split(msg, " ")
 		for ind, val := range arr { // go through the message and check the parts
@@ -170,7 +170,6 @@ func onIrcQuit(e *irc.Event) {
 	}
 	SendDiscord("*" + e.Nick + "* has quit (" + e.Message() + ")")
 }
-
 
 // KICK callback
 // https://tools.ietf.org/html/rfc1459#section-4.2.8
