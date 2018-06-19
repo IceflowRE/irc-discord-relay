@@ -73,9 +73,20 @@ func onDiscordMsg(session *discordgo.Session, msg *discordgo.MessageCreate) {
 		return
 	}
 
+	var sender string
+	memb, err := session.State.Member(Relay.dGuildId, msg.Author.ID)
+	if err != nil {
+		fmt.Println("Could not get the nickname, fallback to username!")
+		sender = msg.Author.Username
+	} else if memb.Nick == "" {
+		sender = msg.Author.Username
+	} else {
+		sender = memb.Nick
+	}
+
 	msgText = stripEmoji(msgText) // remove the emoji id of the emoji string, affects mostly only server specific emojis
 	for _, msgPart := range strings.Split(msgText, "\n") { // send all line of the discord message
-		SendIrc("<" + msg.Author.Username + "> " + msgPart)
+		SendIrc("<" + sender + "> " + msgPart)
 	}
 	// if message contains an attachment
 	if msg.Attachments != nil && len(msg.Attachments) > 0 {
