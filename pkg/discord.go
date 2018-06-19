@@ -55,10 +55,10 @@ func SendDiscord(msg string) {
 	}
 }
 
-var emojiRe = regexp.MustCompile("(<:.*:)[0-9]*(>)")
+var emojiRe = regexp.MustCompile("(<)a?(:.*:)[0-9]*(>)")
 // removes the unique id from the emoji part
 func stripEmoji(msg string) string {
-	return emojiRe.ReplaceAllString(msg, "$1$2")
+	return emojiRe.ReplaceAllString(msg, "$1$2$3")
 }
 
 // on discord message
