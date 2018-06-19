@@ -12,7 +12,7 @@ else
 	PREFIX=""
 endif
 
-all: build
+all: deps clean build
 build:
 	$(GOBUILD) -o $(BINARY_NAME)$(PREFIX) -x
 test:

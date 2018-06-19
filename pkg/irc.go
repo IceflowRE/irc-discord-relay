@@ -56,8 +56,8 @@ func StartIRC() error {
 		"001",
 		func(e *irc.Event) {
 			iConn.Join(*Config.Irc.Channel)
-			for target, msg := range *Config.Irc.OnConnection {
-				iConn.Privmsg(target, msg)
+			for _, msg := range *Config.Irc.OnConnection {
+				iConn.SendRaw(msg)
 			}
 		},
 	)

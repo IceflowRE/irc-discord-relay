@@ -16,11 +16,11 @@ type Discord struct {
 }
 
 type Irc struct {
-	Channel      *string            `json:"channel,omitempty"`
-	Nick         *string            `json:"nick,omitempty"`
-	Server       *string            `json:"server,omitempty"`
-	OnConnection *map[string]string `json:"onConnection,omitempty"`
-	Sharing      *[]string          `json:"sharing,omitempty"`
+	Channel      *string   `json:"channel,omitempty"`
+	Nick         *string   `json:"nick,omitempty"`
+	Server       *string   `json:"server,omitempty"`
+	OnConnection *[]string `json:"onConnection,omitempty"`
+	Sharing      *[]string `json:"sharing,omitempty"`
 }
 
 type Settings struct {
@@ -39,7 +39,7 @@ func LoadConfig(file string) error {
 	}
 
 	if Config.Irc.OnConnection == nil {
-		Config.Irc.OnConnection = &map[string]string{}
+		Config.Irc.OnConnection = &[]string{}
 	}
 	if Config.Irc.Sharing == nil {
 		Config.Irc.Sharing = &[]string{"message", "me", "join", "leaving", "quit", "kick", "mode"}

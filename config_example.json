@@ -10,9 +10,10 @@
         "server": "irc.freenode.net:7000",
         "channel": "<channel>",
         "nick": "<nick>",
-        "onConnection": {
-            "NickServ": "identify <nick> <password>"
-        },
+        "onConnection": [
+            "PRIVMSG NickServ :identify <nick> <password>",
+            "PRIVMSG <channel> :Hello!"
+        ],
         "sharing": [
             "message",
             "me",

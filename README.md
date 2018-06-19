@@ -20,7 +20,7 @@ One example configuration is part of this repository.
 - **irc** - *map*, required - contains all settings related to the IRC part
     - **channel** - *string*, required - the IRC channel where the bot connects to
     - **nick** - *string*, required - the IRC nick
-    - **onConnection** - *map of string* - will send a message (value) to the user (key)
+    - **onConnection** - *list of string* - every string will send as a **raw** message
     - **sharing** - *list of string* - the actions which will be shared to Discord, an absence of this will imply to share all actions
         - **"message"** - discord message
         - **"me"** - `/me` messages
@@ -45,7 +45,7 @@ One example configuration is part of this repository.
 Alternativ
 - `git clone https://github.com/IceflowRE/irc-discord-relay.git`
 - `cd irc-discord-relay`
-- `make build`
+- `make`
 
 ## Run
 - create a `config.json`, with their needed values, look into the example for more
