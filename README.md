@@ -29,7 +29,7 @@ One example configuration is part of this repository.
         - **"nick"** - nick change
         - **"quit"** - quiting users (e.g. timeout)
         - **"kick"** - user got kicked
-        - **"mode"** - a mode changed by another user
+        - **"mode"** - a mode changed by another user (this includes e.g. ChanServ!)
 
 ---
 
