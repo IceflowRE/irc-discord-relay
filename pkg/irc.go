@@ -89,8 +89,10 @@ func StartIRC() error {
 }
 
 // send a message to the IRC channel
-func SendIrc(msg string) {
-	Relay.iConn.Privmsg(*Config.Irc.Channel, msg)
+func SendIrc(sender string, msg string) {
+	for _, msgPart := range strings.Split(msg, "\n") {
+		Relay.iConn.Privmsg(*Config.Irc.Channel, "<"+sender+"> "+msgPart)
+	}
 }
 
 // if it does not contain any mention it returns the message itself

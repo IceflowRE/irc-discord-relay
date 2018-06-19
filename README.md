@@ -47,6 +47,11 @@ Alternativ
 - `cd irc-discord-relay`
 - `make`
 
+## Update
+
+- `go get -u github.com/IceflowRE/irc-discord-relay`
+- build again
+
 ## Run
 - create a `config.json`, with their needed values, look into the example for more
 - place the config and the executable in one folder
