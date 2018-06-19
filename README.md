@@ -7,6 +7,16 @@
 
 ---
 
+## General Behaviour
+
+### Sending to Discord
+- Discord mentions are converted to a real mention (using the first matching name)
+
+### Sending to IRC
+- Discord mentions are reduced to its name
+- server specific emojis are reduced to its name
+- multi line messages are sent line by line
+
 ## Configuration
 
 The configuration is a json formatted file.
