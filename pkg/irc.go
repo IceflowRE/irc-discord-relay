@@ -17,7 +17,7 @@ func StartIRC() error {
 
 	// add callbacks
 	valid := false
-	for _, value := range *Config.Discord.Sharing {
+	for _, value := range *Config.Irc.Sharing {
 		switch value {
 		case "message":
 			valid = true
