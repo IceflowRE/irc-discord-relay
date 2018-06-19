@@ -3,6 +3,7 @@ package ircDiscordRelay
 import (
 	"fmt"
 	"regexp"
+	"strings"
 
 	"github.com/bwmarrin/discordgo"
 	"github.com/pkg/errors"
@@ -72,11 +73,14 @@ func onDiscordMsg(session *discordgo.Session, msg *discordgo.MessageCreate) {
 		return
 	}
 
-	SendIrc(msg.Author.Username, stripEmoji(msgText))
+	msgText = stripEmoji(msgText) // remove the emoji id of the emoji string, affects mostly only server specific emojis
+	for _, msgPart := range strings.Split(msgText, "\n") { // send all line of the discord message
+		SendIrc("<" + msg.Author.Username + "> " + msgPart)
+	}
 	// if message contains an attachment
 	if msg.Attachments != nil && len(msg.Attachments) > 0 {
 		for _, att := range msg.Attachments {
-			SendIrc(msg.Author.Username, att.URL)
+			SendIrc("<" + msg.Author.Username + "> " + att.URL)
 		}
 	}
 }
