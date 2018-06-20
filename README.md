@@ -3,7 +3,8 @@
 ![Programming Language](https://img.shields.io/badge/language-Go-orange.svg)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/iceflowRE/irc-discord-relay/blob/master/LICENSE.md)
 
-[![Build Status](https://travis-ci.org/IceflowRE/irc-discord-relay.svg?branch=master)](https://travis-ci.org/IceflowRE/irc-discord-relay)
+[![Travis CI](https://img.shields.io/travis/IceflowRE/irc-discord-relay/master.svg?label=Travis%20CI)](https://travis-ci.org/IceflowRE/irc-discord-relay)
+[![Go report card](https://goreportcard.com/badge/github.com/IceflowRE/irc-discord-relay)](https://goreportcard.com/report/github.com/IceflowRE/irc-discord-relay)
 
 ---
 
@@ -52,7 +53,7 @@ One example configuration is part of this repository.
 - `go get github.com/IceflowRE/irc-discord-relay`
 - `go build -x github.com/IceflowRE/irc-discord-relay`
 
-Alternativ
+Alternative
 - `git clone https://github.com/IceflowRE/irc-discord-relay.git`
 - `cd irc-discord-relay`
 - `make`
@@ -88,7 +89,7 @@ https://github.com/IceflowRE/irc-discord-relay
     - https://github.com/thoj/go-ircevent
     - [BSD-3-Clause](https://github.com/thoj/go-ircevent/blob/master/LICENSE)
 
-Some Code taken from:
+Some code snippets were taken from:
 - Snowflower *by* Iceflower S ([Iceflower](https://gitlab.com/Iceflower))
     - (unpublished)
     - https://gitlab.com/Iceflower/snowflower
