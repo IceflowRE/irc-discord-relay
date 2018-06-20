@@ -2,6 +2,7 @@
 ![maintained](https://img.shields.io/badge/maintained-yes-brightgreen.svg)
 ![Programming Language](https://img.shields.io/badge/language-Go-orange.svg)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/iceflowRE/irc-discord-relay/blob/master/LICENSE.md)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FIceflowRE%2Firc-discord-relay.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2FIceflowRE%2Firc-discord-relay?ref=badge_shield)
 
 [![Build Status](https://travis-ci.org/IceflowRE/irc-discord-relay.svg?branch=master)](https://travis-ci.org/IceflowRE/irc-discord-relay)
 
@@ -93,6 +94,9 @@ Some Code taken from:
     - (unpublished)
     - https://gitlab.com/Iceflower/snowflower
     - [GPL-3.0-or-later](https://gitlab.com/Iceflower/snowflower/blob/master/LICENSE.md)
+
+
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FIceflowRE%2Firc-discord-relay.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2FIceflowRE%2Firc-discord-relay?ref=badge_large)
 
 ## License
 Copyright 2018 Iceflower S (iceflower@gmx.de)
