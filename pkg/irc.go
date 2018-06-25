@@ -137,7 +137,9 @@ func onIrcCtcpAction(e *irc.Event) {
 	if !Relay.isReady() || e.Nick == *Config.Irc.Nick {
 		return
 	}
-	SendDiscord("**<" + e.Nick + ">** *" + messageWithMention(e.Message()) + "*")
+
+	msg := ircFormat.ReplaceAllString(e.Message(), "")
+	SendDiscord("**<" + e.Nick + ">** *" + messageWithMention(msg) + "*")
 }
 
 // JOIN callback

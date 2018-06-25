@@ -12,6 +12,7 @@
 
 ### Sending to Discord
 - Discord mentions are converted to a real mention (using the first matching name)
+- IRC formatting will be removed
 
 ### Sending to IRC
 - Discord mentions are reduced to its name
