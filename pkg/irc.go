@@ -4,6 +4,7 @@ import (
 	"crypto/tls"
 	"errors"
 	"fmt"
+	"regexp"
 	"strings"
 
 	"github.com/thoj/go-ircevent"
@@ -118,13 +119,17 @@ func messageWithMention(msg string) string {
 	return msg
 }
 
+// https://stackoverflow.com/a/10567935/6754440
+var ircFormat = regexp.MustCompile(`[\x02\x1F\x0F\x16]|\x03(\d\d?(,\d\d?)?)?`)
 // PRIVMSG callback
 // https://tools.ietf.org/html/rfc1459#section-4.4.1
 func onIrcPrivmsg(e *irc.Event) {
 	if !Relay.isReady() || e.Nick == *Config.Irc.Nick {
 		return
 	}
-	SendDiscord("**<" + e.Nick + ">** " + messageWithMention(e.Message()))
+
+	msg := ircFormat.ReplaceAllString(e.Message(), "")
+	SendDiscord("**<" + e.Nick + ">** " + messageWithMention(msg))
 }
 
 // CTCP_ACTION callback
