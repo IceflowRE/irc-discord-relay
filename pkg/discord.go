@@ -18,7 +18,9 @@ func StartDiscord() error {
 		return err
 	}
 
-	session.AddHandler(func(session *discordgo.Session, msg *discordgo.Ready) { session.UpdateStatus(0, *config.Irc.Channel+" relay") })
+	session.AddHandler(func(session *discordgo.Session, msg *discordgo.Ready) {
+		session.UpdateStatus(0, *config.Irc.Channel+" relay")
+	})
 	valid := false
 	for _, value := range *config.Discord.Sharing {
 		switch value {
@@ -57,6 +59,7 @@ func sendDiscord(msg string) {
 }
 
 var emojiRe = regexp.MustCompile("(<)a?(:.*:)[0-9]*(>)")
+
 // removes the unique id from the emoji part
 func stripEmoji(msg string) string {
 	return emojiRe.ReplaceAllString(msg, "$1$2$3")
@@ -68,7 +71,7 @@ func onDiscordMsg(session *discordgo.Session, msg *discordgo.MessageCreate) {
 	if msg.Author.Bot || !Relay.isReady() || msg.ChannelID != *config.Discord.ChannelID {
 		return
 	}
-	msgText, err := msg.ContentWithMoreMentionsReplaced(session);
+	msgText, err := msg.ContentWithMoreMentionsReplaced(session)
 	if err != nil {
 		fmt.Println(err.Error())
 		return
@@ -85,8 +88,10 @@ func onDiscordMsg(session *discordgo.Session, msg *discordgo.MessageCreate) {
 		sender = memb.Nick
 	}
 
-	msgText = stripEmoji(msgText) // remove the emoji id of the emoji string, affects mostly only server specific emojis
-	for _, msgPart := range strings.Split(msgText, "\n") { // send all line of the discord message
+	// remove the emoji id of the emoji string, affects mostly only server specific emojis
+	msgText = stripEmoji(msgText)
+	// send all lines of the discord message
+	for _, msgPart := range strings.Split(msgText, "\n") {
 		sendIrc("<" + sender + "> " + msgPart)
 	}
 	// if message contains an attachment

@@ -64,17 +64,17 @@ func StartIRC() error {
 		},
 	)
 	/*
-	iConn.AddCallback( // join successful
-		"353",
-		func(e *irc.Event) {
-			if len(e.Arguments) < 3 {
-				return
-			}
-			if e.Arguments[2] == *config.irc.Channel {
+		iConn.AddCallback( // join successful
+			"353",
+			func(e *irc.Event) {
+				if len(e.Arguments) < 3 {
+					return
+				}
+				if e.Arguments[2] == *config.irc.Channel {
 
-			}
-		},
-	)*/
+				}
+			},
+		)*/
 
 	// connect to IRC server
 	err := iConn.Connect(*config.Irc.Server)
@@ -110,7 +110,7 @@ func messageWithMention(msg string) string {
 				for _, member := range members { // get the regarding discord id if its exists
 					if val == ("@"+member.Nick) || val == ("@"+member.User.Username) {
 						arr[ind] = "<@" + member.User.ID + ">"
-						break;
+						break
 					}
 				}
 			}
@@ -128,6 +128,7 @@ func messageWithMention(msg string) string {
 // \x0F: normal
 // \x03: colors
 var ircFormat = regexp.MustCompile(`[\x02\x1F\x16\x1D\x0F]|\x03(\d\d?(,\d\d?)?)?`)
+
 // PRIVMSG callback
 // https://tools.ietf.org/html/rfc1459#section-4.4.1
 func onIrcPrivmsg(e *ircE.Event) {
