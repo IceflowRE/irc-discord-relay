@@ -1,16 +1,17 @@
-package ircDiscordRelay
+package idrelay
 
 import (
 	"github.com/bwmarrin/discordgo"
-	"github.com/thoj/go-ircevent"
+	ircE "github.com/thoj/go-ircevent"
 )
 
-var Relay *idRelay = &idRelay{}
+// Relay is the variable which unite the irc and discord access and will contain the variables for the running bots
+var Relay = &idRelay{}
 
 type idRelay struct {
 	dSession *discordgo.Session
-	dGuildId string
-	iConn    *irc.Connection
+	dGuildID string
+	iConn    *ircE.Connection
 }
 
 func (relay *idRelay) isReady() bool {

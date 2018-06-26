@@ -1,21 +1,22 @@
-package ircDiscordRelay
+// To know more about the configuration see the Readme
+
+package idrelay
 
 import (
 	"encoding/json"
+	"errors"
 	"io/ioutil"
-
-	"github.com/pkg/errors"
 )
 
-var Config *Settings
+var config *settings
 
-type Discord struct {
-	ChannelId *string   `json:"channelId,omitempty"`
+type discord struct {
+	ChannelID *string   `json:"channelId,omitempty"`
 	Token     *string   `json:"token,omitempty"`
 	Sharing   *[]string `json:"sharing,omitempty"`
 }
 
-type Irc struct {
+type irc struct {
 	Channel      *string   `json:"channel,omitempty"`
 	Nick         *string   `json:"nick,omitempty"`
 	Server       *string   `json:"server,omitempty"`
@@ -23,57 +24,58 @@ type Irc struct {
 	Sharing      *[]string `json:"sharing,omitempty"`
 }
 
-type Settings struct {
-	Irc     *Irc     `json:"irc,omitempty"`
-	Discord *Discord `json:"discord,omitempty"`
+type settings struct {
+	Irc     *irc     `json:"irc,omitempty"`
+	Discord *discord `json:"discord,omitempty"`
 }
 
+// LoadConfig loads the configuration file from the given path and saves it to config
 func LoadConfig(file string) error {
 	content, err := ioutil.ReadFile(file)
 	if err != nil {
 		return err
 	}
-	err = json.Unmarshal(content, &Config)
+	err = json.Unmarshal(content, &config)
 	if err != nil {
 		return err
 	}
 
-	if Config.Irc.OnConnection == nil {
-		Config.Irc.OnConnection = &[]string{}
+	if config.Irc.OnConnection == nil {
+		config.Irc.OnConnection = &[]string{}
 	}
-	if Config.Irc.Sharing == nil {
-		Config.Irc.Sharing = &[]string{"message", "me", "join", "leaving", "quit", "kick", "mode"}
+	if config.Irc.Sharing == nil {
+		config.Irc.Sharing = &[]string{"message", "me", "join", "leaving", "quit", "kick", "mode"}
 	}
-	if Config.Discord.Sharing == nil {
-		Config.Discord.Sharing = &[]string{"message"}
+	if config.Discord.Sharing == nil {
+		config.Discord.Sharing = &[]string{"message"}
 	}
 
-	return Config.checkConfig()
+	return config.checkConfig()
 }
 
 // sharing values will be checked at the starting routines
-func (config *Settings) checkConfig() error {
+func (config *settings) checkConfig() error {
 	switch {
 	case config == nil:
-		return errors.New("Settings is nil.")
+		return errors.New("settings is nil")
 	case config.Irc == nil:
-		return errors.New("irc is not set.")
+		return errors.New("irc is not set")
 	case config.Irc.Channel == nil:
-		return errors.New("irc.channel is not set.")
+		return errors.New("irc.channel is not set")
 	case config.Irc.Nick == nil:
-		return errors.New("irc.nick is not set.")
+		return errors.New("irc.nick is not set")
 	case config.Irc.Server == nil:
-		return errors.New("irc.server is not set.")
+		return errors.New("irc.server is not set")
 	case len(*config.Irc.Sharing) == 0:
-		return errors.New("irc.sharing is empty.")
+		return errors.New("irc.sharing is empty")
 	case config.Discord == nil:
-		return errors.New("discord is not set.")
-	case config.Discord.ChannelId == nil:
-		return errors.New("discord.channelId is not set.")
+		return errors.New("discord is not set")
+	case config.Discord.ChannelID == nil:
+		return errors.New("discord.channelId is not set")
 	case config.Discord.Token == nil:
-		return errors.New("discord.token is not set.")
+		return errors.New("discord.token is not set")
 	case len(*config.Discord.Sharing) == 0:
-		return errors.New("discord.sharing is empty.")
+		return errors.New("discord.sharing is empty")
 	}
 
 	return nil

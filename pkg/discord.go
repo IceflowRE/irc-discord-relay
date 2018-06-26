@@ -1,4 +1,4 @@
-package ircDiscordRelay
+package idrelay
 
 import (
 	"fmt"
@@ -11,15 +11,16 @@ import (
 
 var discordNickReg = regexp.MustCompile("@[a-zA-Z0-9]*")
 
+// StartDiscord connects the Discord bot to discord and starts the handlers
 func StartDiscord() error {
-	session, err := discordgo.New("Bot " + *Config.Discord.Token)
+	session, err := discordgo.New("Bot " + *config.Discord.Token)
 	if err != nil {
 		return err
 	}
 
-	session.AddHandler(func(session *discordgo.Session, msg *discordgo.Ready) { session.UpdateStatus(0, *Config.Irc.Channel+" relay") })
+	session.AddHandler(func(session *discordgo.Session, msg *discordgo.Ready) { session.UpdateStatus(0, *config.Irc.Channel+" relay") })
 	valid := false
-	for _, value := range *Config.Discord.Sharing {
+	for _, value := range *config.Discord.Sharing {
 		switch value {
 		case "message":
 			valid = true
@@ -29,7 +30,7 @@ func StartDiscord() error {
 		}
 	}
 	if !valid {
-		return errors.New("No valid values in discord.sharing.")
+		return errors.New("no valid values in discord.sharing")
 	}
 
 	err = session.Open()
@@ -38,18 +39,18 @@ func StartDiscord() error {
 	}
 	Relay.dSession = session
 
-	chn, err := Relay.dSession.Channel(*Config.Discord.ChannelId)
+	chn, err := Relay.dSession.Channel(*config.Discord.ChannelID)
 	if err != nil {
 		return err
 	}
-	Relay.dGuildId = chn.GuildID
+	Relay.dGuildID = chn.GuildID
 
 	return nil
 }
 
 // send message on discord
-func SendDiscord(msg string) {
-	_, err := Relay.dSession.ChannelMessageSend(*Config.Discord.ChannelId, msg)
+func sendDiscord(msg string) {
+	_, err := Relay.dSession.ChannelMessageSend(*config.Discord.ChannelID, msg)
 	if err != nil {
 		fmt.Println(err.Error())
 	}
@@ -64,7 +65,7 @@ func stripEmoji(msg string) string {
 // on discord message
 func onDiscordMsg(session *discordgo.Session, msg *discordgo.MessageCreate) {
 	// ignore message from bots (including myself) and if not ready
-	if msg.Author.Bot || !Relay.isReady() || msg.ChannelID != *Config.Discord.ChannelId {
+	if msg.Author.Bot || !Relay.isReady() || msg.ChannelID != *config.Discord.ChannelID {
 		return
 	}
 	msgText, err := msg.ContentWithMoreMentionsReplaced(session);
@@ -74,7 +75,7 @@ func onDiscordMsg(session *discordgo.Session, msg *discordgo.MessageCreate) {
 	}
 
 	var sender string
-	memb, err := session.State.Member(Relay.dGuildId, msg.Author.ID)
+	memb, err := session.State.Member(Relay.dGuildID, msg.Author.ID)
 	if err != nil {
 		fmt.Println("Could not get the nickname, fallback to username!")
 		sender = msg.Author.Username
@@ -86,12 +87,12 @@ func onDiscordMsg(session *discordgo.Session, msg *discordgo.MessageCreate) {
 
 	msgText = stripEmoji(msgText) // remove the emoji id of the emoji string, affects mostly only server specific emojis
 	for _, msgPart := range strings.Split(msgText, "\n") { // send all line of the discord message
-		SendIrc("<" + sender + "> " + msgPart)
+		sendIrc("<" + sender + "> " + msgPart)
 	}
 	// if message contains an attachment
 	if msg.Attachments != nil && len(msg.Attachments) > 0 {
 		for _, att := range msg.Attachments {
-			SendIrc("<" + msg.Author.Username + "> " + att.URL)
+			sendIrc("<" + msg.Author.Username + "> " + att.URL)
 		}
 	}
 }
