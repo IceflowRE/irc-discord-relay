@@ -120,7 +120,13 @@ func messageWithMention(msg string) string {
 }
 
 // https://stackoverflow.com/a/10567935/6754440
-var ircFormat = regexp.MustCompile(`[\x02\x1F\x0F\x16]|\x03(\d\d?(,\d\d?)?)?`)
+// \x02: bold
+// \x1F: underline
+// \x16: italics
+// \x1D: italics
+// \x0F: normal
+// \x03: colors
+var ircFormat = regexp.MustCompile(`[\x02\x1F\x16\x1D\x0F]|\x03(\d\d?(,\d\d?)?)?`)
 // PRIVMSG callback
 // https://tools.ietf.org/html/rfc1459#section-4.4.1
 func onIrcPrivmsg(e *irc.Event) {
