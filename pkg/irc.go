@@ -147,7 +147,7 @@ func onIrcCtcpAction(e *ircE.Event) {
 	}
 
 	msg := ircFormat.ReplaceAllString(e.Message(), "")
-	sendDiscord("\\* " + e.Nick + " *" + messageWithMention(msg) + "*")
+	sendDiscord("\\* **" + e.Nick + "** *" + messageWithMention(msg) + "*")
 }
 
 // JOIN callback
