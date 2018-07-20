@@ -1,5 +1,6 @@
 /.idea/
 
+/docker/docker-compose.yml
 /config.json
 
 # Created by https://www.gitignore.io/api/go

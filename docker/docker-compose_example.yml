@@ -1,0 +1,22 @@
+# published under the MIT License
+# https://opensource.org/licenses/mit-license.php
+
+version: '3.6'
+
+services:
+    armadillo:
+        build:
+            context: ../
+            dockerfile: ./docker/Dockerfile
+            args:
+                 VERSION: '0.1.0'
+        restart: unless-stopped
+        volumes:
+            - type: bind
+              source: /home/iceflower/idr-config/ # change this line
+              target: /idr/config/
+              read_only: true
+        logging:
+            options:
+                max-size: "2000k"
+                max-file: "10"
