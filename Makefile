@@ -6,23 +6,16 @@ GOTEST=$(GOCMD) test
 GOGET=$(GOCMD) get
 BINARY_NAME=irc-discord-relay
 
-ifeq ($(OS),Windows_NT)
-	PREFIX=.exe
-else
-	PREFIX=""
-endif
-
 all: deps clean build
 build:
-	$(GOBUILD) -o $(BINARY_NAME)$(PREFIX) -x
+	$(GOBUILD) -o ./build/$(BINARY_NAME) -x
 test:
 	$(GOTEST) -v ./...
 clean:
 	$(GOCLEAN)
-	rm -f $(BINARY_NAME)
-	rm -f $(BINARY_NAME)$(PREFIX)
+	rm -rf ./build/
 run:
-	$(GOBUILD) -o $(BINARY_NAME)$(PREFIX) -x
-	./$(BINARY_NAME)$(PREFIX)
+	$(GOBUILD) -o ./build/$(BINARY_NAME) -x
+	./build/$(BINARY_NAME)
 deps:
 	$(GOGET) ./...
