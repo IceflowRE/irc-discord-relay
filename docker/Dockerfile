@@ -3,8 +3,9 @@
 # build inside an own docker
 FROM golang:alpine AS build
 
+# without musl-dev gcc it wont work in arm64v8, even if it does on amd64
 RUN apk update \
-    && apk --no-cache add make git
+    && apk --no-cache add make git gcc musl-dev
 
 COPY . /go/src/github.com/IceflowRE/irc-discord-relay
 
