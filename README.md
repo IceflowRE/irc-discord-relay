@@ -3,7 +3,7 @@
 ![Programming Language](https://img.shields.io/badge/language-Go-orange.svg)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/iceflowRE/irc-discord-relay/blob/master/LICENSE.md)
 
-[![Travis CI](https://img.shields.io/travis/IceflowRE/irc-discord-relay/master.svg?label=Travis%20CI)](https://travis-ci.org/IceflowRE/irc-discord-relay)
+[![Travis CI](https://img.shields.io/travis/com/IceflowRE/irc-discord-relay/master.svg?label=Travis%20CI)](https://travis-ci.com/IceflowRE/irc-discord-relay)
 [![Go report card](https://goreportcard.com/badge/github.com/IceflowRE/irc-discord-relay)](https://goreportcard.com/report/github.com/IceflowRE/irc-discord-relay)
 
 ---
