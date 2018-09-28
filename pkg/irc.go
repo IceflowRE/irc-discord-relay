@@ -4,6 +4,7 @@ import (
 	"crypto/tls"
 	"errors"
 	"fmt"
+	"regexp"
 	"strings"
 
 	ircE "github.com/thoj/go-ircevent"
@@ -94,9 +95,11 @@ func sendIrc(msg string) {
 	Relay.iConn.Privmsg(*config.Irc.Channel, msg)
 }
 
+var rgxContainsMention = regexp.MustCompile(`(^|\s)@\S+`)
+
 // if it does not contain any mention it returns the message itself
 func messageWithMention(msg string) string {
-	if strings.ContainsRune(msg, '@') { // contains the message possible mentions
+	if rgxContainsMention.FindString(msg) != "" { // contains the message possible mentions
 		// get the members, have the discord API limit in mind!
 		members, err := Relay.dSession.GuildMembers(Relay.dGuildID, "", 1000)
 		if err != nil { // something went wrong
