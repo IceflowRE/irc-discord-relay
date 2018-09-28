@@ -4,7 +4,6 @@ import (
 	"crypto/tls"
 	"errors"
 	"fmt"
-	"regexp"
 	"strings"
 
 	ircE "github.com/thoj/go-ircevent"
@@ -120,15 +119,6 @@ func messageWithMention(msg string) string {
 	return msg
 }
 
-// https://stackoverflow.com/a/10567935/6754440
-// \x02: bold
-// \x1F: underline
-// \x16: italics
-// \x1D: italics
-// \x0F: normal
-// \x03: colors
-var ircFormat = regexp.MustCompile(`[\x02\x1F\x16\x1D\x0F]|\x03(\d\d?(,\d\d?)?)?`)
-
 // PRIVMSG callback
 // https://tools.ietf.org/html/rfc1459#section-4.4.1
 func onIrcPrivmsg(e *ircE.Event) {
@@ -136,8 +126,7 @@ func onIrcPrivmsg(e *ircE.Event) {
 		return
 	}
 
-	msg := ircFormat.ReplaceAllString(e.Message(), "")
-	sendDiscord("**<" + e.Nick + ">** " + messageWithMention(msg))
+	sendDiscord("**<" + e.Nick + ">** " + messageWithMention(e.MessageWithoutFormat()))
 }
 
 // CTCP_ACTION callback
@@ -146,8 +135,7 @@ func onIrcCtcpAction(e *ircE.Event) {
 		return
 	}
 
-	msg := ircFormat.ReplaceAllString(e.Message(), "")
-	sendDiscord("\\* **" + e.Nick + "** *" + messageWithMention(msg) + "*")
+	sendDiscord("\\* **" + e.Nick + "** *" + messageWithMention(e.MessageWithoutFormat()) + "*")
 }
 
 // JOIN callback
