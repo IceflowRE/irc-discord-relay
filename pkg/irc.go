@@ -108,7 +108,7 @@ func messageWithMention(msg string) string {
 		}
 		arr := strings.Split(msg, " ")
 		for ind, val := range arr { // go through the message and check the parts
-			if discordNickReg.MatchString(val) { // it is a mention
+			if discordNickReg.MatchString(val) && val != "@" { // it is a mention
 				for _, member := range members { // get the regarding discord id if its exists
 					if val == ("@"+member.Nick) || val == ("@"+member.User.Username) {
 						arr[ind] = "<@" + member.User.ID + ">"
