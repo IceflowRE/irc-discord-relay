@@ -2,7 +2,7 @@ package main
 
 import (
 	"flag"
-	"fmt"
+	"log"
 	"os"
 	"os/signal"
 	"syscall"
@@ -17,18 +17,18 @@ func main() {
 
 	err := idRelay.LoadConfig(configFile)
 	if err != nil {
-		fmt.Println(err.Error())
+		log.Println(err.Error())
 		return
 	}
 
 	err = idRelay.StartIRC()
 	if err != nil {
-		fmt.Println(err.Error())
+		log.Println("irc"+err.Error())
 		return
 	}
 	err = idRelay.StartDiscord()
 	if err != nil {
-		fmt.Println(err.Error())
+		log.Println("discord"+err.Error())
 		return
 	}
 
@@ -40,9 +40,9 @@ func main() {
 	}
 	discordErr, ircErr := idRelay.Relay.Close()
 	if discordErr != nil {
-		fmt.Println(discordErr.Error())
+		log.Println("discord"+discordErr.Error())
 	}
 	if ircErr != nil {
-		fmt.Println(ircErr.Error())
+		log.Println("irc"+ircErr.Error())
 	}
 }

@@ -3,7 +3,7 @@ package idrelay
 import (
 	"crypto/tls"
 	"errors"
-	"fmt"
+	"log"
 	"regexp"
 	"strings"
 
@@ -46,7 +46,7 @@ func StartIRC() error {
 			valid = true
 			iConn.AddCallback("MODE", onIrcMode)
 		default:
-			fmt.Println("Invalid irc.sharing value '" + value + "' will be ignored.")
+			log.Println("Invalid irc.sharing value '" + value + "' will be ignored.")
 		}
 	}
 	if !valid {
@@ -103,7 +103,7 @@ func messageWithMention(msg string) string {
 		// get the members, have the discord API limit in mind!
 		members, err := Relay.dSession.GuildMembers(Relay.dGuildID, "", 1000)
 		if err != nil { // something went wrong
-			fmt.Println(err.Error())
+			log.Println(err.Error())
 			return msg
 		}
 		arr := strings.Split(msg, " ")

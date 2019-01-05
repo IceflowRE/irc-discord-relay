@@ -1,7 +1,7 @@
 package idrelay
 
 import (
-	"fmt"
+	"log"
 	"regexp"
 	"strings"
 
@@ -28,7 +28,7 @@ func StartDiscord() error {
 			valid = true
 			session.AddHandler(onDiscordMsg)
 		default:
-			fmt.Println("Invalid discord.sharing value '" + value + "' will be ignored.")
+			log.Println("Invalid discord.sharing value '" + value + "' will be ignored.")
 		}
 	}
 	if !valid {
@@ -54,7 +54,7 @@ func StartDiscord() error {
 func sendDiscord(msg string) {
 	_, err := Relay.dSession.ChannelMessageSend(*config.Discord.ChannelID, msg)
 	if err != nil {
-		fmt.Println(err.Error())
+		log.Println(err.Error())
 	}
 }
 
@@ -73,14 +73,14 @@ func onDiscordMsg(session *discordgo.Session, msg *discordgo.MessageCreate) {
 	}
 	msgText, err := msg.ContentWithMoreMentionsReplaced(session)
 	if err != nil {
-		fmt.Println(err.Error())
+		log.Println(err.Error())
 		return
 	}
 
 	var sender string
 	memb, err := session.State.Member(Relay.dGuildID, msg.Author.ID)
 	if err != nil {
-		fmt.Println("Could not get the nickname, fallback to username!")
+		log.Println("Could not get the nickname, fallback to username!")
 		sender = msg.Author.Username
 	} else if memb.Nick == "" {
 		sender = msg.Author.Username
