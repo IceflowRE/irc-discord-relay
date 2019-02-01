@@ -47,7 +47,7 @@ One example configuration is part of this repository.
 
 ## Requirements
 
-- Go (>= 1.9)
+- Go (>= 1.10)
 
 ## Build
 
@@ -97,7 +97,7 @@ Some code snippets were taken from:
     - [GPL-3.0-or-later](https://gitlab.com/Iceflower/snowflower/blob/master/LICENSE.md)
 
 ## License
-Copyright 2018 Iceflower S (iceflower@gmx.de)
+Copyright 2018-present Iceflower S (iceflower@gmx.de)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
