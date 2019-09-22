@@ -47,22 +47,16 @@ One example configuration is part of this repository.
 
 ## Requirements
 
-- Go (>= 1.10)
+- Go (>= 1.13)
 
 ## Build
 
-- `go get github.com/IceflowRE/irc-discord-relay`
-- `go build -x github.com/IceflowRE/irc-discord-relay`
+- `go build -x -o irc-discord-relay`
 
-Alternative
-- `git clone https://github.com/IceflowRE/irc-discord-relay.git`
-- `cd irc-discord-relay`
-- `make`
 
 ## Update
 
-- `go get -u github.com/IceflowRE/irc-discord-relay`
-- build again
+Pull from git and build again.
 
 ## Run
 - create a `config.json`, with their needed values, look into the example for more

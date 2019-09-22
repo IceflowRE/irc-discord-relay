@@ -7,10 +7,10 @@ FROM golang:alpine AS build
 RUN apk update \
     && apk --no-cache add make git gcc musl-dev
 
-COPY . /go/src/github.com/IceflowRE/irc-discord-relay
+COPY ./ /build
 
-RUN cd /go/src/github.com/IceflowRE/irc-discord-relay \
-    && make
+RUN cd /build \
+    && go build -x -o irc-discord-relay
 
 ###################################
 # Set the base image
@@ -31,12 +31,12 @@ RUN apk update && apk add --no-cache ca-certificates
 
 # add server user and set permissions
 RUN adduser -S -D iceflower \
-    && mkdir /idr \
-    && mkdir /idr/config \
-    && chown iceflower: -R /idr
+    && mkdir /app \
+    && mkdir /app/config \
+    && chown iceflower: -R /app
 
-WORKDIR /idr
-COPY --from=build /go/src/github.com/IceflowRE/irc-discord-relay/build/irc-discord-relay .
+WORKDIR /app
+COPY --from=build /build/irc-discord-relay .
 
 USER iceflower
 ENTRYPOINT ["./irc-discord-relay", "-c", "./config/config.json"]
