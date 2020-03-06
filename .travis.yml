@@ -3,6 +3,7 @@ sudo: false
 
 matrix:
   include:
+  - go: "1.14.x"
   - go: "1.13.x"
   - go: master
   allow_failures:
