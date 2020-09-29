@@ -1,6 +1,6 @@
 module github.com/IceflowRE/irc-discord-relay
 
-go 1.13
+go 1.15
 
 require (
 	github.com/bwmarrin/discordgo v0.19.0
