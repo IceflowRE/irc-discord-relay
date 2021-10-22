@@ -47,7 +47,7 @@ One example configuration is part of this repository.
 
 ## Requirements
 
-- Go (>= 1.13)
+- Go (>= 1.16)
 
 ## Build
 

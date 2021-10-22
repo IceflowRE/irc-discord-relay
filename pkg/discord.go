@@ -19,7 +19,10 @@ func StartDiscord() error {
 	}
 
 	session.AddHandler(func(session *discordgo.Session, msg *discordgo.Ready) {
-		session.UpdateStatus(0, *config.Irc.Channel+" relay")
+		err = session.UpdateGameStatus(0, *config.Irc.Channel+" relay")
+		if err != nil {
+			log.Println(err.Error())
+		}
 	})
 	valid := false
 	for _, value := range *config.Discord.Sharing {
