@@ -5,7 +5,7 @@ package idrelay
 import (
 	"encoding/json"
 	"errors"
-	"io/ioutil"
+	"os"
 )
 
 var config *settings
@@ -31,7 +31,7 @@ type settings struct {
 
 // LoadConfig loads the configuration file from the given path and saves it to config
 func LoadConfig(file string) error {
-	content, err := ioutil.ReadFile(file)
+	content, err := os.ReadFile(file)
 	if err != nil {
 		return err
 	}
