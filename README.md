@@ -1,5 +1,5 @@
 # ircDiscordRelay
-![status](https://img.shields.io/badge/maintained-archived-red.svg)
+![status](https://img.shields.io/badge/status-maintained%20on%20demand-orange)
 ![Programming Language](https://img.shields.io/badge/language-Go-orange.svg)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/iceflowRE/irc-discord-relay/blob/master/LICENSE.md)
 
