@@ -1,20 +1,22 @@
 # ircDiscordRelay
+
 ![status](https://img.shields.io/badge/status-maintained%20on%20demand-orange)
 ![Programming Language](https://img.shields.io/badge/language-Go-orange.svg)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/iceflowRE/irc-discord-relay/blob/master/LICENSE.md)
 
 [![Github Actions](https://github.com/IceflowRE/irc-discord-relay/workflows/Build/badge.svg)](https://github.com/IceflowRE/irc-discord-relay/actions)
-[![Go report card](https://goreportcard.com/badge/github.com/IceflowRE/irc-discord-relay)](https://goreportcard.com/report/github.com/IceflowRE/irc-discord-relay)
 
 ---
 
 ## General Behaviour
 
 ### Sending to Discord
+
 - Discord mentions are converted to a real mention (using the first matching name)
 - IRC formatting will be removed
 
 ### Sending to IRC
+
 - Discord mentions are reduced to its name
 - server specific emojis are reduced to its name
 - multi line messages are sent line by line
@@ -53,12 +55,12 @@ One example configuration is part of this repository.
 
 - `go build -x -o irc-discord-relay`
 
-
 ## Update
 
 Pull from git and build again.
 
 ## Run
+
 - create a `config.json`, with their needed values, look into the example for more
 - place the config and the executable in one folder
 - execute with `irc-discord-relay -c config.json`
@@ -66,14 +68,17 @@ Pull from git and build again.
 ---
 
 ## Web
+
 https://github.com/IceflowRE/irc-discord-relay
 
 ## Credits
+
 - Developer
     - Iceflower S
         - iceflower@gmx.de
 
 ### Third Party
+
 - DiscordGo *by* Bruce Marriner ([bwmarrin](https://github.com/bwmarrin))
     - https://github.com/bwmarrin/discordgo
     - [BSD-3-Clause](https://github.com/bwmarrin/discordgo/blob/master/LICENSE)
@@ -91,6 +96,7 @@ Some code snippets were taken from:
     - [GPL-3.0-or-later](https://gitlab.com/Iceflower/snowflower/blob/master/LICENSE.md)
 
 ## License
+
 Copyright 2018-present Iceflower S (iceflower@gmx.de)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
