@@ -98,7 +98,7 @@ func onDiscordMsg(session *discordgo.Session, msg *discordgo.MessageCreate) {
 		sendIrc("<" + sender + "> " + msgPart)
 	}
 	// if message contains an attachment
-	if msg.Attachments != nil && len(msg.Attachments) > 0 {
+	if len(msg.Attachments) > 0 {
 		for _, att := range msg.Attachments {
 			sendIrc("<" + msg.Author.Username + "> " + att.URL)
 		}
