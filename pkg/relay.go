@@ -2,7 +2,7 @@ package idrelay
 
 import (
 	"github.com/bwmarrin/discordgo"
-	ircE "github.com/thoj/go-ircevent"
+	ircE "github.com/ohayoubot/go-ircevent"
 )
 
 // Relay is the variable which unite the irc and discord access and will contain the variables for the running bots

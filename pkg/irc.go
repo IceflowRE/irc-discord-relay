@@ -7,7 +7,7 @@ import (
 	"regexp"
 	"strings"
 
-	ircE "github.com/thoj/go-ircevent"
+	ircE "github.com/ohayoubot/go-ircevent"
 )
 
 // StartIRC starts the IRC connection and adds the handlers
